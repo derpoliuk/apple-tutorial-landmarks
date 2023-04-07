@@ -9,16 +9,27 @@ import SwiftUI
 
 struct LandmarkList: View {
     var body: some View {
-        // TODO: Refactor it to newer API
-        NavigationView {
+        // Old approach
+//        NavigationView {
+//            List(landmarks) { landmark in
+//                NavigationLink {
+//                    LandmarkDetail(landmark: landmark)
+//                } label: {
+//                    LandmarkRow(landmark: landmark)
+//                }
+//            }
+//            .navigationTitle("Landmarks")
+//        }
+
+        NavigationStack {
             List(landmarks) { landmark in
-                NavigationLink {
-                    LandmarkDetail(landmark: landmark)
-                } label: {
+                NavigationLink(value: landmark) {
                     LandmarkRow(landmark: landmark)
                 }
             }
-            .navigationTitle("Landmarks")
+            .navigationDestination(for: Landmark.self) { landmark in
+                LandmarkDetail(landmark: landmark)
+            }
         }
     }
 }
